@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+[ ! -z $(docker images -q kuraobi-cs-fixer:latest) ] || docker build -t kuraobi-cs-fixer:latest -f ${PWD}/.docker/cs-fixer/Dockerfile .
+docker run --rm -t \
+    -v ${PWD}/src:/app/src \
+    -v ${PWD}/.php_cs.dist:/app/.php_cs.dist:ro \
+    kuraobi-cs-fixer:latest sh -c "cd /app && /php-cs-fixer $*"

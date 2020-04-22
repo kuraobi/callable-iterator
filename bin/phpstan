@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+[ ! -z $(docker images -q kuraobi-phpstan:latest) ] || docker build -t kuraobi-phpstan:latest -f ${PWD}/.docker/phpstan/Dockerfile .
+docker run --rm -t \
+    -v ${PWD}/src:/app/src:cached,ro \
+    -v ${PWD}/vendor:/app/vendor:cached,ro \
+    -v ${PWD}/phpstan.neon:/app/phpstan.neon:cached,ro \
+    kuraobi-phpstan:latest sh -c "cd /app && /tmp/vendor/bin/phpstan $*"

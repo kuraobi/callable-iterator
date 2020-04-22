@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+docker run --rm -t \
+    -v ${PWD}/composer.json:/app/composer.json \
+    -v ${PWD}/composer.lock:/app/composer.lock \
+    -v ${PWD}/vendor:/app/vendor \
+    -e COMPOSER_MEMORY_LIMIT=-1 \
+    composer:latest \
+    composer $@

@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+docker run --rm -t \
+    -v ${PWD}/src:/app/src:cached,ro \
+    -v ${PWD}/vendor:/app/vendor:cached,ro \
+    -v ${PWD}/tests:/app/tests:delegated \
+    -v ${PWD}/phpunit.xml.dist:/app/phpunit.xml.dist:delegated \
+    php:cli-alpine sh -c "cd /app && php /app/vendor/bin/phpunit $*"
